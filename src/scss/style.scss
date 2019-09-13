@@ -1,0 +1,10 @@
+$color-arrow-size: 25px;
+
+.color-arrow-marker-icon {
+    width: 0;
+    height: 0;
+
+    border-bottom: $arrow-size solid red;
+    border-left: #{$arrow-size / 2} solid transparent;
+    border-right: #{$arrow-size / 2} solid transparent;
+}

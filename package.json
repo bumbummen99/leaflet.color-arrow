@@ -1,0 +1,25 @@
+{
+  "name": "leaflet.color-arrow",
+  "version": "0.0.1",
+  "description": "Small Leaflet extension create an Arrow Marker that can change it's color.",
+  "main": "src/js/L.Marker.ColorArrow.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bumbummen99/leaflet.color-arrow.git"
+  },
+  "keywords": [
+    "leaflet",
+    "marker",
+    "arrow",
+    "color"
+  ],
+  "author": "Patrick Henninger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bumbummen99/leaflet.color-arrow/issues"
+  },
+  "homepage": "https://github.com/bumbummen99/leaflet.color-arrow#readme",
+  "devDependencies": {
+    "leaflet": "^1.5.1"
+  }
+}
