@@ -85,8 +85,9 @@ L.Marker.ColorArrow = L.Marker.extend({
         this.options.color = color;
 
         /* Update color in css */
-        if (this._icon) {
-            this._icon.style['border-bottom-color'] = this.options.color;
+        const ele = this.getElement();
+        if (ele) {
+            ele.style['border-bottom-color'] = this.options.color;
         }
     },
 

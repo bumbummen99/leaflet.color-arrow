@@ -1,6 +1,6 @@
 {
   "name": "leaflet.color-arrow",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Small Leaflet extension create an Arrow Marker that can change it's color.",
   "main": "src/js/L.Marker.ColorArrow.js",
   "repository": {
