@@ -11,11 +11,28 @@ L.Marker.ColorArrow = L.Marker.extend({
      * @param {number} r Red value (0-255)
      * @param {number} g Green value (0-255)
      * @param {number} b Blue value (0-255)
-     * @param {number} a Alpha value (0-1)
+     * @param {number} a Alpha value (0-255)
      */
-    setRGBA(r, g, b, a = 1) {
-        this.options.color = 'rgba('+r+','+g+','+b+','+a+')';
-        this.setColor();
+    setRGBA(r, g, b, a = 255) {
+        const rgbaToHex = (r, g, b, a = 255) => {
+            r = r.toString(16);
+            g = g.toString(16);
+            b = b.toString(16);
+            a = a.toString(16);
+          
+            if (r.length == 1)
+              r = "0" + r;
+            if (g.length == 1)
+              g = "0" + g;
+            if (b.length == 1)
+              b = "0" + b;
+            if (a.length == 1)
+                a = "0" + a;
+          
+            return "#" + r + g + b + a;
+        };
+
+        this.setColor(rgbaToHex(r, g, b, a));
     },
 
     /**
@@ -26,8 +43,37 @@ L.Marker.ColorArrow = L.Marker.extend({
      * @param {number} a Alpha value (0-1)
      */
     setHSVA(h, s = 1, v = 1, a = 1) {
-        const rgb = this._HSVtoRGB(h, s, v);
-        this.setRGBA(rgb.r, rgb.g, rgb.b, a);
+        const hsvToRgb = (h, s, v) => {
+            let r, g, b, i, f, p, q, t;
+    
+            if (arguments.length === 1) {
+                s = h.s, v = h.v, h = h.h;
+            }
+    
+            i = Math.floor(h * 6);
+            f = h * 6 - i;
+            p = v * (1 - s);
+            q = v * (1 - f * s);
+            t = v * (1 - (1 - f) * s);
+    
+            switch (i % 6) {
+                case 0: r = v, g = t, b = p; break;
+                case 1: r = q, g = v, b = p; break;
+                case 2: r = p, g = v, b = t; break;
+                case 3: r = p, g = q, b = v; break;
+                case 4: r = t, g = p, b = v; break;
+                case 5: r = v, g = p, b = q; break;
+            }
+    
+            return {
+                r: Math.round(r * 255),
+                g: Math.round(g * 255),
+                b: Math.round(b * 255)
+            };
+        };
+
+        const rgb = hsvToRgb(h, s, v);
+        this.setRGBA(rgb.r, rgb.g, rgb.b, Math.round(255 * a));
     },
 
     /**
@@ -35,7 +81,13 @@ L.Marker.ColorArrow = L.Marker.extend({
      * @param {string} color 
      */
     setColor(color) {
-        this._icon.style['border-bottom-color'] = this.options.color;
+        /* Update color in options */
+        this.options.color = color;
+
+        /* Update color in css */
+        if (this._icon) {
+            this._icon.style['border-bottom-color'] = this.options.color;
+        }
     },
 
     /**
@@ -44,42 +96,6 @@ L.Marker.ColorArrow = L.Marker.extend({
      */
     getColor() {
         return this.options.color;
-    },
-
-    /**
-     * Converts hsv to RGB
-     * @param {number} h
-     * @param {number} s
-     * @param {number} v
-     * @returns {Object}
-     */
-    _HSVtoRGB: (h, s, v) => {
-        let r, g, b, i, f, p, q, t;
-
-        if (arguments.length === 1) {
-            s = h.s, v = h.v, h = h.h;
-        }
-
-        i = Math.floor(h * 6);
-        f = h * 6 - i;
-        p = v * (1 - s);
-        q = v * (1 - f * s);
-        t = v * (1 - (1 - f) * s);
-
-        switch (i % 6) {
-            case 0: r = v, g = t, b = p; break;
-            case 1: r = q, g = v, b = p; break;
-            case 2: r = p, g = v, b = t; break;
-            case 3: r = p, g = q, b = v; break;
-            case 4: r = t, g = p, b = v; break;
-            case 5: r = v, g = p, b = q; break;
-        }
-
-        return {
-            r: Math.round(r * 255),
-            g: Math.round(g * 255),
-            b: Math.round(b * 255)
-        };
     }
 });
 
