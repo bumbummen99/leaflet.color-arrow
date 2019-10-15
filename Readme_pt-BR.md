@@ -3,7 +3,7 @@
 **Pequeno plugin para Leaflet para criar marcações que podem ser coloridas!**
 
 # Tabela de Conteúdo
-- [Instalação](#instalacao)
+- [Instalação](#instala%C3%A7%C3%A3o)
 - [Uso](#uso)
 - [Exemplo](#exemplo)
 
