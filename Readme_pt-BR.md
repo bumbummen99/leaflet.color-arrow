@@ -1,6 +1,6 @@
 # Leaflet Color Arrow
 
-**Pequeno plugin para Leaflet para criar marcações que podem ser coloridas!**
+**Um pequeno plugin para Leaflet para criar marcações que podem ser coloridas!**
 
 # Tabela de Conteúdo
 - [Instalação](#instala%C3%A7%C3%A3o)
